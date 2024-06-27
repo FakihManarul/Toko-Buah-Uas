@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import Hero from "@/app/home/page";
 import Navbar from "@/components/Navbar";
 import Register from "./register/page";
 
