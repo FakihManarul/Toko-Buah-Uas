@@ -64,3 +64,24 @@ export const SubmitButton = ({label}:{label:string}) =>{
     </button>
   );
 }
+
+export const RegisterButton = ({ label }: { label: string }) => {
+  const { pending } = useFormStatus();
+
+  const className = clsx(
+    "text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm w-full px-5 py-3 text-center",
+    {
+      "opacity-50 cursor-progress": pending,
+    }
+  );
+
+  return (
+    <button type="submit" className={className} disabled={pending}>
+      {pending ? (
+        <span>{label === "register" ? "Registering..." : "Register"}</span>
+      ) : (
+        <span>{label === "register" ? "Register" : "Register"}</span>
+      )}
+    </button>
+  );
+};

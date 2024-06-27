@@ -1,12 +1,11 @@
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import ProductTable from "@/components/product-table";
+import Register from "./register/page";
 
 export default function Home() {
   return (
-    <div className="w-max bg-white">
-      <Navbar />
-      <Hero />
+    <div className="mx-auto max-h-screen bg-white">
+      <Register />
     </div>
   );
 }

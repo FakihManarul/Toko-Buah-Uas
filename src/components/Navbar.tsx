@@ -3,7 +3,7 @@ import React from "react";
 
 export default function navbar() {
   return (
-    <header className="bg-white py-4">
+    <header className="bg-white max-w-screen-xl mx-auto py-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <img src="/img/logo.png" alt="Logo" className="h-8 mr-2" />
