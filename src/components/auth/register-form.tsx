@@ -1,28 +1,29 @@
-"use client";
-
+// components/auth/register-form.tsx
 import React, { useState } from "react";
-import { RegisterButton } from "@/components/button";
+import { RegisterButton } from "../button";
 
-const RegisterForm: React.FC<{
-  onSubmit: (nama: string, email: string, password: string) => void;
-}> = ({ onSubmit }) => {
-  const [nama, setNama] = useState<string>("");
+interface RegisterFormProps {
+  onSubmit: (name: string, email: string, password: string) => void;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(nama, email, password);
+    onSubmit(name, email, password);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-1">
-        <label className="block text-sm font-medium text-gray-700">Nama:</label>
+        <label className="block text-sm font-medium text-gray-700">Name:</label>
         <input
           type="text"
-          value={nama}
-          onChange={(e) => setNama(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
@@ -51,7 +52,9 @@ const RegisterForm: React.FC<{
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
-      <RegisterButton label="register" />
+      <div>
+        <RegisterButton label="Register" />
+      </div>
     </form>
   );
 };

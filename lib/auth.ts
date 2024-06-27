@@ -1,7 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "./prisma";
+// lib/auth.ts
+"use server";
+
 import { z } from "zod";
-import bcrypt from "bcrypt";
+import { prisma } from "./prisma";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const AuthSchema = z.object({
   name: z.string().min(1),
@@ -9,37 +12,26 @@ const AuthSchema = z.object({
   password: z.string().min(1),
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "POST") {
-    const validatedFields = AuthSchema.safeParse(req.body);
+export const registerUser = async (
+  name: string,
+  email: string,
+  password: string
+) => {
+  const validatedFields = AuthSchema.safeParse({ name, email, password });
 
-    if (!validatedFields.success) {
-      return res.status(400).json({
-        error: validatedFields.error.flatten().fieldErrors,
-      });
-    }
-
-    const { name, email, password } = validatedFields.data;
-
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      await prisma.user.create({
-        data: {
-          name,
-          email,
-          password: hashedPassword,
-        },
-      });
-      res.status(200).json({ message: "User registered successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Failed to create user" });
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  if (!validatedFields.success) {
+    throw new Error("Validation failed");
   }
-}
+
+  try {
+    await prisma.user.create({
+      data: {
+        name: validatedFields.data.name,
+        email: validatedFields.data.email,
+        password: validatedFields.data.password, // Note: Ideally, you should hash the password before storing it
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to create user");
+  }
+};

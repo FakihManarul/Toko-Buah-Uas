@@ -1,3 +1,4 @@
+// src/app/register/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -5,28 +6,21 @@ import React from "react";
 import bgImage from "../../../public/img/bg-login.jpg";
 import RegisterForm from "@/components/auth/register-form";
 import { useRouter } from "next/navigation";
+import { registerUser } from "../../../lib/auth";
 
 const Register: React.FC = () => {
   const router = useRouter();
 
   const handleRegister = async (
-    nama: string,
+    name: string,
     email: string,
     password: string
   ) => {
-    const response = await fetch("../../../lib/auth.ts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ nama, email, password }),
-    });
-
-    if (response.ok) {
+    try {
+      await registerUser(name, email, password);
       router.push("/login");
-    } else {
-      // Handle registration failure (e.g., show an error message)
-      console.error("Failed to register");
+    } catch (error) {
+      console.error("Failed to register:", error);
     }
   };
 
