@@ -24,14 +24,17 @@ export const registerUser = async (
   }
 
   try {
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name: validatedFields.data.name,
         email: validatedFields.data.email,
-        password: validatedFields.data.password, // Note: Ideally, you should hash the password before storing it
+        password: validatedFields.data.password, // Ideally, hash the password before storing
       },
     });
+    console.log("User created successfully:", newUser);
+    return newUser; // Optionally return the created user
   } catch (error) {
+    console.error("Failed to create user:", error);
     throw new Error("Failed to create user");
   }
 };
