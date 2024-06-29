@@ -5,7 +5,7 @@ import Search from "@/components/search";
 import Pagination from "@/components/pagination";
 import { CreateButton } from "@/components/button";
 import { string } from "zod";
-import { getBuahPages } from "../../../lib/data";
+import { getBuahPages } from "../lib/data";
 import { Suspense } from "react";
 import { TableSkeleton } from "@/components/skeleton";
 
@@ -29,7 +29,7 @@ const Products: React.FC<ProductsProps> = async ({ searchParams }) => {
         <Search />
         <CreateButton />
       </div>
-      <Suspense key={query + currentPage} fallback={<TableSkeleton/>}>
+      <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
         <ProductTable query={query} currentPage={currentPage} />
       </Suspense>
 

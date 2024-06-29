@@ -1,5 +1,6 @@
 "use server";
 
+// import { signIn } from "@/auth";
 import {z} from "zod"
 import {prisma} from "./prisma"
 import { revalidatePath } from "next/cache";
@@ -68,3 +69,19 @@ export const deleteProduct = async (id:string) => {
 
     revalidatePath("/products")
 };
+
+// export async function authenticate(_currentState: unknown, formData: FormData) {
+//   try {
+//     await signIn("credentials", formData);
+//   } catch (error) {
+//     if (error) {
+//       switch (error.type) {
+//         case "CredentialsSignin":
+//           return "Invalid credentials.";
+//         default:
+//           return "Something went wrong.";
+//       }
+//     }
+//     throw error;
+//   }
+// }

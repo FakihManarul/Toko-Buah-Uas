@@ -1,6 +1,6 @@
 import React from "react";
-import { getBuah } from "../../lib/data";
-import { formateDate } from "../../lib/utils";
+import { getBuah } from "../app/lib/data";
+import { formateDate } from "../app/lib/utils";
 import { EditButton, DeleteButton } from "@/components/button";
 
 interface ProductTableProps {

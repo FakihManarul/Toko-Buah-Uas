@@ -1,10 +1,38 @@
 // lib/auth.ts
-"use server";
 
 import { z } from "zod";
 import { prisma } from "./prisma";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { compare } from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+export const JWT_SECRET = "your_secret_key";
+
+export const generateToken = (userId: string): string => {
+  const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "1h" });
+  return token;
+};
+
+export const loginUser = async (
+  email: string,
+  password: string
+): Promise<string | null> => {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  const passwordMatch = await compare(password, user.password);
+
+  if (!passwordMatch) {
+    return null;
+  }
+
+  const token = generateToken(user.id);
+  return token;
+};
 
 const AuthSchema = z.object({
   name: z.string().min(1),
@@ -28,11 +56,11 @@ export const registerUser = async (
       data: {
         name: validatedFields.data.name,
         email: validatedFields.data.email,
-        password: validatedFields.data.password, // Ideally, hash the password before storing
+        password: validatedFields.data.password,
       },
     });
     console.log("User created successfully:", newUser);
-    return newUser; // Optionally return the created user
+    return newUser;
   } catch (error) {
     console.error("Failed to create user:", error);
     throw new Error("Failed to create user");

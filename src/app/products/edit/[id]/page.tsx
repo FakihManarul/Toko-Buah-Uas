@@ -1,14 +1,14 @@
 import UpdateForm from "@/components/edit-form";
-import { getBuahById } from "../../../../../lib/data";
+import { getBuahById } from "../../../lib/data";
 import { notFound } from "next/navigation";
 
-const UpdateProductPage = async ({params}: {params: {id: string}}) => {
-    const id = params.id;
-    const buah = await getBuahById(id);
+const UpdateProductPage = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+  const buah = await getBuahById(id);
 
-    if (!buah) {
-        notFound();
-    }
+  if (!buah) {
+    notFound();
+  }
 
   return (
     <div className="max-w-md mx-auto wd-5">

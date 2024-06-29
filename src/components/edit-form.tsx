@@ -1,11 +1,11 @@
 "use client";
 
-import { updateProduct } from "../../lib/action";
+import { updateProduct } from "../app/lib/action";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "@/components/button";
 import type { Buah } from "@prisma/client";
 
-const UpdateForm = ({ buah }: { buah: Buah}) => {
+const UpdateForm = ({ buah }: { buah: Buah }) => {
   const UpdateProductWithId = updateProduct.bind(null, buah.id);
   const [state, formAction] = useFormState(UpdateProductWithId, null);
 

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { SaveProduct } from "../../lib/action";
+import { SaveProduct } from "../app/lib/action";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "@/components/button";
 
 const CreateForm = () => {
-const [state, formAction] = useFormState(SaveProduct, null);
+  const [state, formAction] = useFormState(SaveProduct, null);
 
   return (
     <div>
@@ -49,7 +49,7 @@ const [state, formAction] = useFormState(SaveProduct, null);
         <div id="message-error" aria-live="polite" aria-atomic="true">
           <p className="mt-2 text-sm text-red-500">{state?.message}</p>
         </div>
-        <SubmitButton label="save"/>
+        <SubmitButton label="save" />
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { IoAddSharp, IoPencil, IoTrashOutline } from "react-icons/io5";
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
-import { deleteProduct } from "../../lib/action";
+import { deleteProduct } from "../app/lib/action";
 
 export const CreateButton = () => {
   return (
@@ -18,7 +18,7 @@ export const CreateButton = () => {
   );
 };
 
-export const EditButton = ({ id }:{ id: string}) => {
+export const EditButton = ({ id }: { id: string }) => {
   return (
     <Link
       href={`/products/edit/${id}`}
@@ -40,22 +40,18 @@ export const DeleteButton = ({ id }: { id: string }) => {
   );
 };
 
-export const SubmitButton = ({label}:{label:string}) =>{
-  const {pending} = useFormStatus();
-  
-  const className = clsx("text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm w-full px-5 py-3 text-center",
-  {
-    "opacity-50 cursor-progess": pending
-  }
+export const SubmitButton = ({ label }: { label: string }) => {
+  const { pending } = useFormStatus();
 
-  )
+  const className = clsx(
+    "text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm w-full px-5 py-3 text-center",
+    {
+      "opacity-50 cursor-progess": pending,
+    }
+  );
 
   return (
-    <button
-      type="submit"
-      className={className}
-      disabled={pending}
-    >
+    <button type="submit" className={className} disabled={pending}>
       {label === "save" ? (
         <span>{pending ? "Saving..." : "Save"}</span>
       ) : (
@@ -63,7 +59,7 @@ export const SubmitButton = ({label}:{label:string}) =>{
       )}
     </button>
   );
-}
+};
 
 export const RegisterButton = ({ label }: { label: string }) => {
   const { pending } = useFormStatus();

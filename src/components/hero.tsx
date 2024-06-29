@@ -4,7 +4,6 @@ import React from "react";
 export default function hero() {
   return (
     <div className="">
-      <Navbar />
       <img src="/img/hero.jpg" alt="Example" className="w-full h-full" />
       <div className="absolute pl-28 w-1/2 inset-0 flex flex-col items-start justify-center ">
         <p className="text-white text-5xl font-bold">
