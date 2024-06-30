@@ -14,7 +14,7 @@ export default function hero() {
           Sayuran segar setiap hari, sampai buah-buahan yang memiliki kualitas
           terjamin. Hingga sampai ke pelukanmu!
         </p>
-        <button className="px-12 py-2 mt-3 rounded-full bg-[#81B03F]">
+        <button className="px-12 py-2 mt-3 rounded-full text-white bg-[#81B03F] hover:bg-slate-400">
           Shop Now
         </button>
       </div>
